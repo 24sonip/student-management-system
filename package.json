@@ -1,0 +1,13 @@
+{
+  "name": "student-management-system-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Frontend tooling for the Flask Student Management System",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5173",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "vite": "^7.0.0"
+  }
+}
