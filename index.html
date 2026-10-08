@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudentHub — Student Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+      <div class="brand">
+        <div class="brand-logo">S</div>
+        <div>
+          <strong>StudentHub</strong>
+          <span>Management System</span>
+        </div>
+      </div>
+
+      <nav>
+        <p class="nav-label">MAIN MENU</p>
+
+        <a href="#dashboard" class="nav-item active">
+          <span>▦</span>
+          Dashboard
+        </a>
+
+        <a href="#students" class="nav-item">
+          <span>♙</span>
+          Students
+        </a>
+
+        <a href="#addStudent" class="nav-item">
+          <span>＋</span>
+          Add Student
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="system-status">
+          <span class="status-dot"></span>
+          <div>
+            <strong>System Online</strong>
+            <small>SQLite Database</small>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main">
+
+      <!-- TOPBAR -->
+      <header class="topbar">
+
+        <button class="menu-btn" id="menuBtn">☰</button>
+
+        <div>
+          <h1>Student Dashboard</h1>
+          <p>Manage your student records efficiently.</p>
+        </div>
+
+        <button class="theme-btn" id="themeBtn" title="Toggle dark mode">
+          ◐
+        </button>
+
+      </header>
+
+      <!-- CONTENT -->
+      <main class="content" id="dashboard">
+
+        <!-- WELCOME -->
+        <section class="welcome-card">
+
+          <div>
+            <span class="welcome-tag">STUDENT MANAGEMENT SYSTEM</span>
+            <h2>Welcome back 👋</h2>
+            <p>
+              Manage, search and organize student information
+              from one simple dashboard.
+            </p>
+          </div>
+
+          <button
+            class="primary-btn"
+            onclick="document.getElementById('addStudent').scrollIntoView({behavior:'smooth'})"
+          >
+            + Add Student
+          </button>
+
+        </section>
+
+        <!-- STATISTICS -->
+        <section class="stats-grid">
+
+          <div class="stat-card">
+            <div class="stat-icon purple">♙</div>
+            <div>
+              <span>Total Students</span>
+              <strong id="totalCount">0</strong>
+              <small>Registered students</small>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon blue">%</div>
+            <div>
+              <span>Average Marks</span>
+              <strong id="avgMarks">0.0</strong>
+              <small>Overall performance</small>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon green">★</div>
+            <div>
+              <span>Highest Marks</span>
+              <strong id="highMarks">0.0</strong>
+              <small>Top performance</small>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ADD STUDENT -->
+        <section class="dashboard-card" id="addStudent">
+
+          <div class="card-header">
+            <div>
+              <span class="section-label">STUDENT FORM</span>
+              <h2 id="formTitle">Add New Student</h2>
+              <p>Enter the student's details below.</p>
+            </div>
+
+            <button
+              class="secondary-btn hidden"
+              id="cancelEditBtn"
+              type="button"
+            >
+              Cancel Edit
+            </button>
+          </div>
+
+          <form id="studentForm">
+
+            <input type="hidden" id="studentId">
+
+            <div class="form-grid">
+
+              <div class="input-group">
+                <label for="name">Student Name</label>
+                <div class="input-box">
+                  <span>♙</span>
+                  <input
+                    id="name"
+                    maxlength="80"
+                    required
+                    placeholder="Enter full name"
+                  >
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="rollNo">Roll Number</label>
+                <div class="input-box">
+                  <span>#</span>
+                  <input
+                    id="rollNo"
+                    maxlength="30"
+                    required
+                    placeholder="e.g. 101"
+                  >
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="className">Class</label>
+                <div class="input-box">
+                  <span>▤</span>
+                  <input
+                    id="className"
+                    maxlength="40"
+                    required
+                    placeholder="e.g. 12-A"
+                  >
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="marks">Marks</label>
+                <div class="input-box">
+                  <span>%</span>
+                  <input
+                    id="marks"
+                    type="number"
+                    min="0"
+                    max="100"
+                    step="0.01"
+                    required
+                    placeholder="0 - 100"
+                  >
+                </div>
+              </div>
+
+              <div class="input-group full">
+                <label for="contact">Contact Number</label>
+                <div class="input-box">
+                  <span>☎</span>
+                  <input
+                    id="contact"
+                    maxlength="20"
+                    required
+                    placeholder="Enter contact number"
+                  >
+                </div>
+              </div>
+
+            </div>
+
+            <button
+              class="primary-btn submit-btn"
+              id="submitBtn"
+              type="submit"
+            >
+              + Add Student
+            </button>
+
+          </form>
+
+          <div id="message" class="message"></div>
+
+        </section>
+
+        <!-- STUDENT DIRECTORY -->
+        <section class="dashboard-card" id="students">
+
+          <div class="card-header directory-header">
+
+            <div>
+              <span class="section-label">STUDENT DIRECTORY</span>
+              <h2>All Students</h2>
+              <p>View and manage all registered students.</p>
+            </div>
+
+            <div class="search-area">
+
+              <div class="search-box">
+                <span>⌕</span>
+
+                <input
+                  id="searchInput"
+                  placeholder="Search students..."
+                >
+              </div>
+
+              <button
+                id="clearSearch"
+                type="button"
+                class="secondary-btn"
+              >
+                Clear
+              </button>
+
+            </div>
+
+          </div>
+
+          <div class="table-container">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Student</th>
+                  <th>Roll No.</th>
+                  <th>Class</th>
+                  <th>Marks</th>
+                  <th>Contact</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody id="studentTableBody"></tbody>
+
+            </table>
+
+            <div id="emptyState" class="empty-state hidden">
+
+              <div class="empty-icon">♙</div>
+
+              <h3>No Students Found</h3>
+
+              <p>
+                Add a student or try another search.
+              </p>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </main>
+
+      <footer>
+        StudentHub © 2026 • Built with HTML, CSS, JavaScript, Flask & SQLite
+      </footer>
+
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+
+  <script>
+
+    /* Sidebar mobile menu */
+    const menuBtn = document.getElementById("menuBtn");
+    const sidebar = document.getElementById("sidebar");
+
+    menuBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+    });
+
+    document.querySelectorAll(".nav-item").forEach(item => {
+      item.addEventListener("click", () => {
+        document
+          .querySelectorAll(".nav-item")
+          .forEach(i => i.classList.remove("active"));
+
+        item.classList.add("active");
+
+        sidebar.classList.remove("open");
+      });
+    });
+
+    /* Dark mode */
+    const themeBtn = document.getElementById("themeBtn");
+
+    if (localStorage.getItem("studenthub-theme") === "dark") {
+      document.body.classList.add("dark");
+    }
+
+    themeBtn.addEventListener("click", () => {
+
+      document.body.classList.toggle("dark");
+
+      localStorage.setItem(
+        "studenthub-theme",
+        document.body.classList.contains("dark")
+          ? "dark"
+          : "light"
+      );
+
+    });
+
+  </script>
+
+</body>
+</html>
